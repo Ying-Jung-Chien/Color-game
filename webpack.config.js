@@ -3,7 +3,7 @@ const webpack = require('webpack');
 
 module.exports = {
     context: path.resolve(__dirname, './src'),
-    entry: ['babel-polyfill', './main.js'],
+    entry: ['@babel/polyfill', './main.js'],
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: '[name].bundle.js'
@@ -19,7 +19,7 @@ module.exports = {
                         options: {
                             presets: [
                                 [
-                                    'env', {
+                                    '@babel/preset-env', {
                                         modules: false
                                     }
                                 ]
