@@ -23,7 +23,7 @@ export default class Main extends Component {
         this.board = new Board(root.querySelector('.board'), this.deck.getPickedColor());
 
         this.reset = new Reset(root.querySelector('.reset'));
-        this.reset.on('click', this.handleRestClick.bind(this));
+        this.reset.on('click', this.handleResetClick.bind(this));
     }
 
     handleDeckWrongClick(firer) {
@@ -36,7 +36,7 @@ export default class Main extends Component {
         this.reset.showPlayAgain();
     }
 
-    handleRestClick(firer) {
+    handleResetClick(firer) {
         this.root.style.backgroundColor = "#232323";
 
         this.deck.reset();
