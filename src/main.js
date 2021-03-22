@@ -36,12 +36,12 @@ export default class Main extends Component {
         this.reset.showPlayAgain();
     }
 
-    handleRestClick() {
+    handleRestClick(firer) {
         this.root.style.backgroundColor = "#232323";
 
         this.deck.reset();
         this.board.reset(this.deck.getPickedColor());
-        this.reset.reset();
+        firer.reset();
     }
 }
 
