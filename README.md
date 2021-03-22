@@ -7,7 +7,7 @@
 Please finish the hard mode by using component-based coding style. 
 * Create the mode button
 * After clicking the mode button, it should fire an event
-* It's father component will handle the click event
+* Its father component will handle the click event
 
 ## Important
 To test the code, you should run `npm install` first, then run `npm run build` or `npm run watch` sequently.
