@@ -21,6 +21,9 @@ Please finish the hard mode and nightmare mode with component-based style.
 #### 2. Nightmare mode <b>(30%)</b>
 * Remember .bind(this) when using `setInterval` and `setTimeout`
 
+## Submission
+When you open merge request, Title should be : {your ID} Submission
+
 ## Important
 To test the code, you should run `npm install` first, then run `npm run build` or `npm run watch` sequently.
 
