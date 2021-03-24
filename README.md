@@ -22,7 +22,7 @@ Please finish the hard mode and nightmare mode with component-based style.
 * Remember .bind(this) when using `setInterval` and `setTimeout`
 
 ## Submission
-When you open merge request, Title should be : {your ID} Submission
+When you open merge request, the title should be : {your ID} Submission
 
 ## Important
 To test the code, you should run `npm install` first, then run `npm run build` or `npm run watch` sequently.
