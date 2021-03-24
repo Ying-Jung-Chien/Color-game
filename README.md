@@ -14,11 +14,11 @@ Please finish the hard mode and nightmare mode with component-based style.
 
 
 ## Grading
-#### 1. Hard mode <b>(70%)</b>
+#### 1. Hard mode **(80%)**
 * Create the mode button
 * After clicking the mode button, it should fire an event
 * Its father component will handle the click event
-#### 2. Nightmare mode <b>(30%)</b>
+#### 2. Nightmare mode **(20%)**
 * Remember .bind(this) when using `setInterval` and `setTimeout`
 
 ## Submission
