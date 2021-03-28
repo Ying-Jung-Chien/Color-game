@@ -19,11 +19,14 @@ export default class Reset extends Component {
         this.reset();
     }
 
-    reset() {
+    reset(mode) {
+        if (mode == 2) this.root.style.visibility = "hidden";
+        else this.root.style.visibility = "visible";
         this.resetDisplay.textContent = "New Color";
     }
 
     showPlayAgain() {
+        this.root.style.visibility = "visible";
         this.resetDisplay.textContent = "Play Again";
     }
 

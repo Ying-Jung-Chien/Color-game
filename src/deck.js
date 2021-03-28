@@ -1,5 +1,6 @@
 import Component from './component.js';
 import Card from './card.js';
+import Card_6 from './card_6.js';
 
 import './deck.css';
 
@@ -18,17 +19,46 @@ export default class Deck extends Component {
 
         this.gameOver = false;
         this.cards = [];
+        this.card3s = [];
+        this.card6s = [];
         const els = root.querySelectorAll(Card.getRootClass());
         for (let el of els) {
             const card = new Card(el);
             card.on('click', this.handleCardClick.bind(this));
-            this.cards.push(card);
+            this.card3s.push(card);
         }
+        for (let c of this.card3s) this.cards.push(c);
+
+        const card6s = root.querySelectorAll(Card_6.getRootClass());
+        for (let card6 of card6s) {
+            // card6.style.display = "none";
+            const _card = new Card_6(card6);
+            _card.on('click', this.handleCardClick.bind(this));
+            
+            this.card6s.push(_card);
+        }
+        for (let c of this.card6s) this.cards.push(c);
+        // console.log(this.card6s.length)
+        // console.log(this.cards.length)
         this.pickedColor = this.pickColor();
     }
 
-    reset() {
+    reset(m) {
         this.gameOver = false;
+        //console.log(m)
+        this.cards = []
+        if (m) {
+            for (let card of this.card3s) this.cards.push(card);
+            for (let card of this.card6s){
+                card.display(1);
+                this.cards.push(card);
+            } 
+        }
+        else{
+            for (let card of this.card6s) card.display(0);
+            for (let card of this.card3s) this.cards.push(card);
+        } 
+        //console.log(this.cards.length)
         for (let card of this.cards)
             card.reset();
         this.pickedColor = this.pickColor();
@@ -56,5 +86,11 @@ export default class Deck extends Component {
     pickColor() {
         const random = Math.floor(Math.random() * this.cards.length);
         return this.cards[random].getColor();
+    }
+
+    timeOut() {
+        this.gameOver = true;
+        for (let card of this.cards)
+            card.fadeIn("#FFF");
     }
 }

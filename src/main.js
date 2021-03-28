@@ -14,7 +14,14 @@ export default class Main extends Component {
     constructor(root) {
         super(root);
 
+        this.mode = 1;
+        this.timeout;
+        this.blink;
+        this.blinkTime = 0;
         this.navbar = new Navbar(root.querySelector('.navbar'));
+        this.navbar.on('easy', this.handleEasyClick.bind(this));
+        this.navbar.on('hard', this.handleHardClick.bind(this));
+        this.navbar.on('nightmare', this.handleNightmareClick.bind(this));
 
         this.deck = new Deck(root.querySelector('.deck'));
         this.deck.on('wrongClick', this.handleDeckWrongClick.bind(this));
@@ -26,11 +33,49 @@ export default class Main extends Component {
         this.reset.on('click', this.handleResetClick.bind(this));
     }
 
+    handleEasyClick(firer) {
+        clearTimeout(this.timeout);
+        clearInterval(this.blink);
+        this.mode = 0;
+        this.root.style.backgroundColor = "#232323";
+        this.navbar.select(0);
+        this.deck.reset(0);
+        this.board.reset(this.deck.getPickedColor(), 0);
+        this.reset.reset(0);
+    }
+
+    handleHardClick(firer) {
+        clearTimeout(this.timeout);
+        clearInterval(this.blink);
+        this.mode = 1;
+        this.root.style.backgroundColor = "#232323";
+        this.navbar.select(1);
+        this.deck.reset(1);
+        this.board.reset(this.deck.getPickedColor(), 1);
+        this.reset.reset(1);
+    }
+
+    handleNightmareClick(firer) {
+        clearTimeout(this.timeout);
+        clearInterval(this.blink);
+        this.blinkTime = 0;
+        this.timeout = setTimeout(this.isTimeOut.bind(this), 5000);
+        this.blink = setInterval(this.isBlink.bind(this), 100);
+        this.mode = 2;
+        this.root.style.backgroundColor = "#232323";
+        this.navbar.select(2);
+        this.deck.reset(1);
+        this.board.reset(this.deck.getPickedColor(), 2);
+        this.reset.reset(2);
+    }
+
     handleDeckWrongClick(firer) {
-        this.board.showWrongMessage();
+        this.board.showWrongMessage(this.mode);
     }
 
     handleDeckRightClick(firer, pickedColor) {
+        clearTimeout(this.timeout);
+        clearInterval(this.blink);
         this.root.style.backgroundColor = pickedColor;
         this.board.showCorrectMessage();
         this.reset.showPlayAgain();
@@ -39,9 +84,26 @@ export default class Main extends Component {
     handleResetClick(firer) {
         this.root.style.backgroundColor = "#232323";
 
-        this.deck.reset();
-        this.board.reset(this.deck.getPickedColor());
-        firer.reset();
+        this.deck.reset(this.mode);
+        this.board.reset(this.deck.getPickedColor(), this.mode);
+        firer.reset(this.mode);
+        if(this.mode == 2){
+            this.blinkTime = 0;
+            this.timeout = setTimeout(this.isTimeOut.bind(this), 5000);
+            this.blink = setInterval(this.isBlink.bind(this), 100);
+        } 
+    }
+
+    isTimeOut() {
+        clearInterval(this.blink);
+        this.root.style.backgroundColor = this.deck.getPickedColor();
+        this.reset.showPlayAgain();
+        this.deck.timeOut();
+    }
+    isBlink() {
+        this.blinkTime++;
+        if(this.blinkTime % 10 === 0) this.root.style.backgroundColor = "#fff";
+        else this.root.style.backgroundColor = "#232323";
     }
 }
 
